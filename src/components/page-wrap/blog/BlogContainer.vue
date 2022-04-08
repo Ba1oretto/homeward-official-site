@@ -105,6 +105,5 @@ const changePage = (next) => {
   pubsub.publish('changeLoadingBgCondition', true)
   preventBounce(next)
 }
-
 getPosts()
 </script>
