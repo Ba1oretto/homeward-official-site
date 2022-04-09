@@ -79,6 +79,7 @@ const getPosts = async () => {
   data.posts = result.posts
   button.next = data.pagination.next === null ? buttonCondition.disable : buttonCondition.enable
   button.prev = data.pagination.prev === null ? buttonCondition.disable : buttonCondition.enable
+  pubsub.publish('setCurrentBackground', result.posts[0].featureImage)
 }
 
 const textSubstring = (text, position) => {

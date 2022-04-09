@@ -1,5 +1,5 @@
 <template>
-  <div data-page="blog" class="page-bg" :style="getImageAddress(latest.imageAddress)"/>
+  <div data-page="blog" class="page-bg" :style="getImageAddress(latest)"/>
   <blog-container/>
   <div class="stone-bg dark pt-10 pb-20 blog-offset"/>
 </template>
@@ -16,8 +16,12 @@ export default {
 
 <script setup>
 import {getImageAddress} from "../../../hook/attribute-generator.js";
+import {ref} from "vue";
+import pubsub from "pubsub-js";
 
-const latest = {
-  imageAddress: 'https://ba1oretto.com/blog/2022/04/Badger_Blog.jpg'
+const latest = ref('')
+const setCurrentBackground = (_, bg) => {
+  latest.value = bg
 }
+pubsub.subscribe('setCurrentBackground', setCurrentBackground)
 </script>

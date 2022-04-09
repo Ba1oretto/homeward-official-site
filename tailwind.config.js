@@ -20,7 +20,8 @@ module.exports = {
     },
     extend: {
       spacing: {
-        'discord': '350px'
+        'discord': '350px',
+        'img': '600px'
       },
       colors: {
         pink: {
@@ -41,7 +42,6 @@ module.exports = {
           '600': '#7b7f85',
           '800': '#181a1b',
           '900': '#0d0e0f'
-
         },
         btn: {
           'text': '#97438f',
@@ -64,6 +64,9 @@ module.exports = {
           '800': '#5763c7',
           '900': '#3642a9'
         },
+        content: {
+          'wrap': '#b3b7bc'
+        }
       },
       margin: {
         '27.5': '110px',

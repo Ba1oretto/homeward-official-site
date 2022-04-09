@@ -3,6 +3,7 @@
 @import "./components/wrap.css";
 @import "./components/blog.css";
 @import "./components/home.css";
+@import "./components/post.css";
 
 @import "animation/clipboard.css";
 @import "animation/player.css";

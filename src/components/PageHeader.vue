@@ -67,7 +67,7 @@ export default {
 import {reactive, ref} from "vue";
 import {debounce} from "lodash";
 import {copy} from "../hook/clipboard.js";
-import {useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 const ipStyle = ref(false)
 const currentPosition = reactive({
@@ -76,10 +76,14 @@ const currentPosition = reactive({
 })
 
 const route = useRoute()
-const currentPath = route.path.substring(1)
+const currentPath = route.name
 
 switch (currentPath) {
   case 'blog': {
+    currentPosition.blog = 'bg-nav-blog border-lighten'
+    break
+  }
+  case 'post': {
     currentPosition.blog = 'bg-nav-blog border-lighten'
     break
   }

@@ -1,0 +1,211 @@
+.content-wrap h1, .content-wrap h2, .content-wrap h3, .content-wrap h4, .content-wrap h5, .content-wrap h6 {
+    @apply pb-2.5 font-bold text-white
+}
+.content-wrap h1 {
+    font-size: 32px
+}
+
+.content-wrap h2 {
+    font-size: 28px
+}
+
+.content-wrap h3 {
+    font-size: 24px
+}
+
+.content-wrap h4 {
+    font-size: 22px
+}
+
+.content-wrap h5 {
+    font-size: 18px
+}
+
+.content-wrap h6 {
+    font-size: 16px
+}
+
+.content-wrap ol {
+    list-style: decimal;
+    padding: 20px
+}
+
+.content-wrap ol li {
+    display: list-item;
+    padding-bottom: 6px
+}
+
+.content-wrap ul {
+    list-style: disc;
+    padding: 10px 20px 20px
+}
+
+.content-wrap ul li {
+    display: list-item;
+    padding-bottom: 6px
+}
+
+.content-wrap iframe, .content-wrap img {
+    max-width: 100%;
+    margin: 30px auto
+}
+
+@screen md {
+    .content-wrap .kg-image-card img {
+        max-width: 84%
+    }
+}
+
+.content-wrap blockquote {
+    margin: 20px 0;
+    padding: 10px 30px;
+    border-left: 4px solid #181a1b
+}
+
+.content-wrap pre {
+    @apply bg-black/50 text-black whitespace-pre-wrap p-5;
+    margin: 0 0 20px
+}
+
+.content-wrap .kg-card .kg-bookmark-container {
+    max-width: 800px;
+    display: grid;
+    background-color: rgba(0, 0, 0, .5);
+    overflow: hidden;
+    margin: 20px 0;
+    grid-template-rows:auto auto
+}
+
+@screen lg {
+    .content-wrap .kg-card .kg-bookmark-container {
+        grid-template-columns:1fr auto;
+        grid-template-rows:auto
+    }
+}
+
+.content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content {
+    display: grid;
+    grid-template-rows:auto 1fr auto;
+    padding: 25px;
+    position: relative
+}
+
+@screen lg {
+    .content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content {
+        grid-row: 2
+    }
+}
+
+.content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content .kg-bookmark-title {
+    @apply font-bold uppercase text-black;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: 1.6px;
+    padding: 0 0 10px;
+    position: relative
+}
+
+.content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content .kg-bookmark-description {
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.8;
+    color: hsla(0, 0%, 100%, .6)
+}
+
+.content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content .kg-bookmark-metadata {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 14px;
+    padding-top: 30px
+}
+
+.content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content .kg-bookmark-metadata .kg-bookmark-icon {
+    width: 20px;
+    margin-right: 10px;
+    margin-bottom: 0
+}
+
+.content-wrap .kg-card .kg-bookmark-container .kg-bookmark-thumbnail {
+    background-color: rgba(0, 0, 0, .5);
+    position: relative
+}
+
+@screen lg {
+    .content-wrap .kg-card .kg-bookmark-container .kg-bookmark-thumbnail {
+        overflow: hidden;
+        width: 360px
+    }
+
+    .content-wrap .kg-card .kg-bookmark-container .kg-bookmark-thumbnail img {
+        max-width: 360px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover
+    }
+}
+
+@screen lg {
+    .content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content, .content-wrap .kg-card .kg-bookmark-container .kg-bookmark-thumbnail {
+        width: 100%
+    }
+
+    .content-wrap .kg-card .kg-bookmark-container .kg-bookmark-content {
+        border-radius: 0 0 4px 4px
+    }
+
+    .content-wrap .kg-card .kg-bookmark-container .kg-bookmark-thumbnail img {
+        border-radius: 4px 4px 0 0
+    }
+}
+
+.content-wrap .kg-image-card.kg-card-hascaption {
+    padding: 25px 0;
+    margin: 0 -1.5rem 30px;
+    background: #000
+}
+@screen sm {
+    .content-wrap .kg-image-card.kg-card-hascaption {
+        margin: 0 0 30px
+    }
+}
+
+.content-wrap .kg-image-card.kg-card-hascaption img {
+    margin: 0 auto
+}
+
+.content-wrap .kg-image-card.kg-card-hascaption figcaption {
+    font-weight: 700;
+    text-align: center;
+    padding-top: 25px;
+    font-size: 14px;
+    color: #828a98
+}
+
+.content-wrap .kg-gallery-row {
+    display: grid;
+    grid-gap: .75rem;
+    gap: .75rem
+}
+@screen md {
+    .content-wrap .kg-gallery-row {
+        grid-template-columns:repeat(2, minmax(0, 1fr))
+    }
+}
+
+@screen lg {
+    .content-wrap .kg-gallery-row {
+        grid-template-columns:repeat(3, minmax(0, 1fr))
+    }
+}
+
+.content-wrap .kg-gallery-row .kg-gallery-image {
+    margin: 0 8px
+}

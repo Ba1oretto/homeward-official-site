@@ -3,6 +3,7 @@ import {createRouter, createWebHistory} from "vue-router";
 const homeHub = () => import('../components/page-wrap/home/HomeHub.vue')
 const rulesHub = () => import('../components/page-wrap/rules/RulesHub.vue')
 const blogHub = () => import('../components/page-wrap/blog/BlogHub.vue')
+const postHub = () => import('../components/page-wrap/post/PostHub.vue')
 const header = () => import('../components/PageHeader.vue')
 const footer = () => import('../components/PageFooter.vue')
 
@@ -14,6 +15,15 @@ const router = createRouter({
             name: 'blog',
             components: {
                 default: blogHub,
+                header,
+                footer
+            }
+        },
+        {
+            path: '/blog/:postId',
+            name: 'post',
+            components: {
+                default: postHub,
                 header,
                 footer
             }
