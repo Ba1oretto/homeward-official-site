@@ -20,3 +20,12 @@ export default {
   components: {HomeStaff, HomeVideoPlayer, HomeSocial, HomeBlog, HomeVideo, HomeHero},
 }
 </script>
+
+<script setup>
+import {onMounted} from "vue";
+import pubsub from "pubsub-js";
+
+onMounted(() => {
+  pubsub.publish('changeLoadingBgCondition', false)
+})
+</script>

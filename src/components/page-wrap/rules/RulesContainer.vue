@@ -32,6 +32,9 @@
 </template>
 
 <script setup>
+import {onMounted} from "vue";
+import pubsub from "pubsub-js";
+
 const rules = [
   {
     title: 'Inappropriate Chat Conduct',
@@ -73,6 +76,9 @@ const rules = [
     ]
   }
 ]
+onMounted(() => {
+  pubsub.publish('changeLoadingBgCondition', false)
+})
 </script>
 
 <script>
