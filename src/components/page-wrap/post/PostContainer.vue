@@ -71,13 +71,13 @@ const data = reactive({
   recentPosts: []
 })
 const getDetails = async () => {
-  const {data: res} = await axios.get(`http://127.0.0.1:3000/local/post/${postId}`)
+  const {data: res} = await axios.get(`http://127.0.0.1:3000/baioretto/homeward/api/post/${postId}`)
   const result = res.data
   data.post = {...result}
   pubsub.publish('setCurrentBackground', data.post.featureImage)
 }
 const getRecentPost = async () => {
-  const {data: res} = await axios.get('http://127.0.0.1:3000/local/post/selector', {params})
+  const {data: res} = await axios.get('http://127.0.0.1:3000/baioretto/homeward/api/post/selector', {params})
   const result = res.data
   data.recentPosts = [...result]
 }

@@ -39,7 +39,7 @@ const params = {
 const postList = reactive([])
 
 const selectPost = async () => {
-  const {data: result } = await axios.get('local/post/selector', {params})
+  const {data: result } = await axios.get('baioretto/homeward/api/post/selector', {params})
   postList.unshift(result.data[1], result.data[0], result.data[2])
 }
 selectPost()

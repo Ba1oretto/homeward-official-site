@@ -66,7 +66,7 @@ const buttonCondition = {
 const superContainer = document.getElementById('app')
 
 const getPosts = async () => {
-  const {data: res} = await axios.get('local/post/blog', {params})
+  const {data: res} = await axios.get('baioretto/homeward/api/post/blog', {params})
   const result = res.data;
   data.pagination = {
     pageNum: result.pageNum,
