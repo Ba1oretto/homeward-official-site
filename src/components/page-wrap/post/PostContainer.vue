@@ -1,22 +1,18 @@
 <template>
   <div class="sm:container mx-auto">
-    <!--todo-->
-    <div :style="getImageAddress(data.post.featureImage)" class="cover-image w-100 h-64 md:h-img bg-cover bg-center border border-lighten"/>
-    <div class="content-wrap bg-black/50 mt-16 px-6 md:px-10 lg:px-20">
+    <div v-if="available" :style="getImageAddress(data.post.featureImage)" class="cover-image w-100 h-64 md:h-img bg-cover bg-center border border-lighten"/>
+    <div v-if="available" class="content-wrap bg-black/50 mt-16 px-6 md:px-10 lg:px-20">
       <div class="pt-20 mb-10">
-        <!--todo-->
         <h1 class="text-3xl text-white font-bold">{{ data.post.title }}</h1>
-        <!--todo-->
         <div id="meta" class="flex items-center font-semibold">
           <div class="tracking-wide uppercase tag tag-update" :style="getColor(data.post.tag.color)">{{ data.post.tag.name }}</div>
           <div class="spacer mx-3">–</div>
           <time class="text-gray-500">{{ getDate(data.post.createTime) }}</time>
         </div>
       </div>
-      <!--todo-->
       <div class="content pb-20" v-html="generatePostContent(data.post.html)"/>
     </div>
-    <div class="p-10 md:p-15 mb-20">
+    <div v-if="available" class="p-10 md:p-15 mb-20">
       <div id="title" class="text-center pb-10">
         <h3 class="text-white text-3xl font-bold">Looking For More?</h3>
         <h5 class="mb-0 text-gray-500">Check out some of our other posts if you haven’t already!</h5>
@@ -49,13 +45,22 @@ export default {
 
 <script setup>
 import {getDate, getImageAddress, getColor, getPostURL, generatePostContent} from "../../../hook/attribute-generator.js";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import {useRoute} from "vue-router";
 import axios from "axios";
 import pubsub from "pubsub-js";
+import {debounce} from "lodash";
 
 const route = useRoute()
 const postId = route.params.postId;
+
+const available = ref(false)
+const setLoading = debounce(() => {
+  pubsub.publish('changeLoadingBgCondition', false)
+  available.value = true
+}, 600)
+pubsub.publish('changeLoadingBgCondition', true)
+
 
 const params = {
   offset: 1,
@@ -81,6 +86,6 @@ const getRecentPost = async () => {
   const result = res.data
   data.recentPosts = [...result]
 }
-getDetails()
+getDetails().then(() => setLoading())
 getRecentPost()
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <div class="md:grid md:grid-cols-2 md:gap-10">
+    <div v-if="available" class="md:grid md:grid-cols-2 md:gap-10">
       <a v-for="(post, index) in data.posts" :key="index" :href="getPostURL(post.slug)" class="post mb-4 lg:mb-0 group">
         <div class="cover-wrap mb-6">
           <div class="blackout"/>
@@ -17,7 +17,7 @@
         </div>
       </a>
     </div>
-    <div class="flex items-center justify-between bg-black/50 p-4 mt-10 mb-20">
+    <div v-if="available" class="flex items-center justify-between bg-black/50 p-4 mt-10 mb-20">
       <div :class="button.prev" @click="changePage(false)" class="inline-block border border-lighten py-2 px-4 transition-all duration-150 ease-in-out">
         <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8">
           <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <script setup>
-import {reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {getDate, getPostURL, getColor, getImageAddress} from "../../../hook/attribute-generator.js";
 import axios from "axios";
 import pubsub from "pubsub-js";
@@ -54,6 +54,14 @@ const data = reactive({
   pagination: {},
   posts: []
 })
+
+const available = ref(false)
+const setLoading = debounce(() => {
+  pubsub.publish('changeLoadingBgCondition', false)
+  available.value = true
+}, 600)
+pubsub.publish('changeLoadingBgCondition', true)
+
 
 const button = reactive({
   next: 'text-btn-text bg-btn shadow-btn hover:opacity-75 cursor-pointer',
@@ -90,6 +98,7 @@ const preventBounce = debounce((next) => {
   params.pageNum += next ? 1 : -1
   getPosts().then(() => {
     pubsub.publish('changeLoadingBgCondition', false)
+    available.value = true
     superContainer.scrollIntoView()
     superContainer.removeEventListener('wheel', preventWheel)
   })
@@ -104,7 +113,8 @@ const changePage = (next) => {
     block: 'start'
   })
   pubsub.publish('changeLoadingBgCondition', true)
+  available.value = false
   preventBounce(next)
 }
-getPosts()
+getPosts().then(() => setLoading())
 </script>
