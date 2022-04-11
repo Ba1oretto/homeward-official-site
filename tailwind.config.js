@@ -63,9 +63,6 @@ module.exports = {
         discord: {
           '800': '#5763c7',
           '900': '#3642a9'
-        },
-        content: {
-          'wrap': '#b3b7bc'
         }
       },
       margin: {

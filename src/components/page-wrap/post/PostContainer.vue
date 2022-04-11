@@ -1,20 +1,41 @@
 <template>
   <div class="sm:container mx-auto">
     <!--todo-->
-    <div :style="getImageAddress(data.featureImage)" class="cover-image w-100 h-64 md:h-img bg-cover bg-center border border-lighten"></div>
+    <div :style="getImageAddress(data.post.featureImage)" class="cover-image w-100 h-64 md:h-img bg-cover bg-center border border-lighten"/>
     <div class="content-wrap bg-black/50 mt-16 px-6 md:px-10 lg:px-20">
       <div class="pt-20 mb-10">
         <!--todo-->
-        <h1 class="text-3xl text-white font-bold">{{ data.title }}</h1>
+        <h1 class="text-3xl text-white font-bold">{{ data.post.title }}</h1>
         <!--todo-->
         <div id="meta" class="flex items-center font-semibold">
-          <div class="tracking-wide uppercase tag tag-update" :style="getTagColor(data.tagColor)">{{ data.tag }}</div>
+          <div class="tracking-wide uppercase tag tag-update" :style="getColor(data.post.tag.color)">{{ data.post.tag.name }}</div>
           <div class="spacer mx-3">–</div>
-          <time class="text-gray-500">{{ getDate(data.createTime) }}</time>
+          <time class="text-gray-500">{{ getDate(data.post.createTime) }}</time>
         </div>
       </div>
       <!--todo-->
-      <div class="content pb-20" v-html="data.html">
+      <div class="content pb-20" v-html="generatePostContent(data.post.html)"/>
+    </div>
+    <div class="p-10 md:p-15 mb-20">
+      <div id="title" class="text-center pb-10">
+        <h3 class="text-white text-3xl font-bold">Looking For More?</h3>
+        <h5 class="mb-0 text-gray-500">Check out some of our other posts if you haven’t already!</h5>
+      </div>
+      <div class="grid gap-8 lg:grid-cols-2 md:px-10">
+        <a v-for="post in data.recentPosts" :href="getPostURL(post.slug)" class="post mb-4 lg:mb-0 group">
+          <div class="cover-wrap mb-6">
+            <div class="blackout"/>
+            <div :style="getImageAddress(post.featureImage)" class="cover shadow-border bg-cover bg-center transition ease-in-out duration-150 group-hover:opacity-90 group-hover:shadow-purple-inner"/>
+          </div>
+          <div class="post-body transition-opacity ease-in-out duration-150 group-hover:opacity-90 text-center">
+            <h3 class="font-bold text-white mb-1 text-xl">{{ post.title }}</h3>
+            <div class="flex lg:items-center flex-col-reverse lg:flex-row text-gray-500 justify-center">
+              <div :style="getColor(post.tag.color)" class="font-semibold tracking-wide uppercase">{{ post.tag.name }}</div>
+              <div class="mx-2 hidden lg:block">–</div>
+              <div class="date">{{ getDate(post.createTime) }}</div>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -27,14 +48,39 @@ export default {
 </script>
 
 <script setup>
-import {getDate, getImageAddress, getTagColor} from "../../../hook/attribute-generator.js";
+import {getDate, getImageAddress, getColor, getPostURL, generatePostContent} from "../../../hook/attribute-generator.js";
+import {reactive} from "vue";
+import {useRoute} from "vue-router";
+import axios from "axios";
+import pubsub from "pubsub-js";
 
-const data = {
-  title: '0.18.0 - Gigs & Jigs Update',
-  featureImage: 'https://ba1oretto.com/blog/2022/04/Badger_Blog.jpg',
-  tag: 'Update',
-  tagColor: 'feb72b',
-  createTime: '2023-04-03 15:50:28',
-  html: "<p>Greetings adventurers!<br><br>As many of you have recently seen, Origin Isles is undergoing some major construction to the right side of the island and there's plenty more to see! Buckle up as we dive into the most expressive update Origin Isles has ever seen!</p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/unknown-21.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"2492\" height=\"1440\"><figcaption>Origin Isles Carnival Construction</figcaption></figure><h2 id=\"badges-system\">Badges System</h2><p>Finally, the Badges and Tasks system is here! As discussed in some of our previous blogs, we intended this month to release the very first iteration of the long-awaited badges system, finally, we have made it.</p><p>Badges are very much a core part of the Origin Realms experience, and while it does need to come in multiple stages, we're very excited about what this means for the future of gameplay and progression for players. </p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/2022-03-18_23.23.53.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"3456\" height=\"2102\"><figcaption>Badgers Scout Badges</figcaption></figure><p>Upon speaking to Badger in the Origin Isles forest, you'll notice that there are 4 badges to begin; Farming, Combat, Exploration, and Magic. These badges represent major areas of the game and can be leveled up by doing tasks around the server. </p><p>As time goes on, leveling up badges will be how you unlock new content and progress forward as a player. To begin with, each badge has a total of <strong>25 levels</strong>, and your player level is a combination of all<strong> 4 badges</strong>, meaning you can currently level up to a<strong> total of 100</strong>. Some areas of the game will be locked behind specific badges (for example new sprinklers), while some things may be locked behind your general player level. </p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/2022-03-18_06.29.56.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"2560\" height=\"1440\"><figcaption>Scout NPC Task Giver</figcaption></figure><p>We understand that a system like this must be introduced slowly, specifically since our player base currently has access to everything, and we wouldn't want to limit things you're used to using until you reach certain levels.<br><br><em>For this reason, absolutely no content locking has been put in place, and won't be for at least 2 more weeks while we allow people to gain their levels. From that point onward, simple things like using the Auction House will be behind certain levels, so be sure to get moving! </em></p><h3 id=\"tasks\">Tasks</h3><p>You might be wondering how to level up your Badges, and you came to the right place! Around Origin Isles are 20 unique scout NPC's, 5 for each badge. Each day, every one of these scout NPC's will have a new task to offer you that will vary in difficulty based on your current badge level. </p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/unknown-26.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"1968\" height=\"1126\"><figcaption>Origin Isles Task Boards</figcaption></figure><p>These tasks will be specific to the badge you're leveling up, and upon completion, you'll receive rubies along with EXP for the badge you're doing a task for. Users are able to do one task per badge at all times, and each NPC will have a 24-hour cooldown after task completion. </p><h3 id=\"streaks-badger-crates\">Streaks &amp; Badger Crates</h3><p>Outside of leveling up your badges to obtain rubies and unlock content around the network, streaks are a great way of amazing rewards for your hard tasks work!</p><p>In Badger's menu, you can see your current task streaks per day. To increase your streak for the day, you need to complete <strong>any 3 tasks</strong> given by the scouts around spawn. Upon reaching streak milestones, you'll be given the all-new <strong>Badger Crate keys</strong>, which upon being opened allow you to unlock a huge list of new Cosmetics, <strong>Gestures</strong>, Furniture, and much more!</p><p>By missing your tasks for the day, your streak will be lost and you'll start back at 0, so don't miss out!</p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/2022-03-18_11.21.08.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"5120\" height=\"2774\"><figcaption>Badger Crate</figcaption></figure><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/2022-03-16_22.34.30.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"2560\" height=\"1377\"><figcaption>Badger Crate Contents (some of them)</figcaption></figure><h2 id=\"jesters-gestures\">Jesters Gestures</h2><p>Yes, the rumors are true... Over the last 6 months, in our spare time, the team has been working hard to achieve what up until now has been considered impossible. We're incredibly proud to announce that Origin Realms is the first-ever Minecraft server to have fully functional and seamless player gestures in 100% vanilla!</p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/unknown-22.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"2468\" height=\"1440\"><figcaption>Jesters Gestures Tent</figcaption></figure><p>Jester has made a dramatic impact already in Origin Isles, and he has convinced the Mayor to fund an entire new carnival! Time will only tell what this carnival will have to offer, but for now, Jester has opened his own attraction called Jester's Gestures!</p><p>With over 50 new gestures that convey different emotions, movements, and dances, there's a way for every player to express themselves like never seen before.</p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/ezgif-1-ac98e3c796.gif\" class=\"kg-image\" alt loading=\"lazy\" width=\"800\" height=\"432\"><figcaption>Gesture Party</figcaption></figure><p>All users will recieve 6 free gestures by default, and the other 50+ can be found within the new Gesture Crate available on the store! As time goes on, many new gestures will be added and even obtainable for free via in-game content and progression!</p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/2022-03-19_08.35.20.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"5120\" height=\"2774\"><figcaption>Jester Crate Opening</figcaption></figure><h2 id=\"st-patricks-store-promotion\">St. Patricks Store Promotion</h2><p>It's March, and that means St. Patricks Day! Since we've been so busy working on awesome new content, we've decided to do something small this year, but amazing nonetheless! </p><p>For the next 48 hours, everyone who spends over $20 on the store in a single transaction will recieve free Rainbow Cloud Balloon and Rainbow Cloud Back Gear tokens! This can be done as many times as you'd like, and you will also have a rare chance of receiving a finish token for both cosmetics too! </p><p>These cosmetics are 2022 exclusive and never available again - don't miss out! </p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/unknown-23.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"2560\" height=\"1440\"><figcaption>St. Patricks Promotional Cosmetics</figcaption></figure><p>That's not all though... We couldn't release the new gesture system without dropping our very first limited edition dance!<br><br>Every user that reaches <strong>player level 4 before Monday</strong> will recieve a free Irish Jig Gesture token to redeem at Jesters Gestures Tent!</p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/ezgif.com-gif-maker-3.gif\" class=\"kg-image\" alt loading=\"lazy\" width=\"800\" height=\"432\"><figcaption>Limited Irish Jig Gesture</figcaption></figure><h2 id=\"bandit-lassos\">Bandit Lasso's</h2><p>As a continuation of our previous major update, Wrangler Bandits now drop their lassos for players to obtain and use! Lassos can be used to grab all monsters and animals and drag them towards you, making for some very strategic combat and gameplay.</p><p>Lassos can be repaired using a rope which is also obtained by wranglers, and found within bandit outpost structures. Now go get wranglin', cowboys, and cowgirls! </p><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/unknown-25.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"2540\" height=\"1399\"><figcaption>Throwable Lasso</figcaption></figure><h2 id=\"misc-updates-adjustments\"><strong>Misc Updates &amp; Adjustments</strong></h2><p>Here's a list of some other small additions and changes made with this update:</p><ul><li>Iron Sprinklers are now purchasable upon reaching Farming level 8</li><li>New Traffic Cone hat can now be obtained from Cosmo's Crate</li><li>/realm leave (name) command allows you to remove yourself as a member from someone else's realm</li></ul><figure class=\"kg-card kg-image-card kg-card-hascaption\"><img src=\"https://assets.originrealms.com/2022/03/2022-03-18_06.56.32.png\" class=\"kg-image\" alt loading=\"lazy\" width=\"2560\" height=\"1377\"><figcaption>Iron Sprinkler</figcaption></figure>"
+const route = useRoute()
+const postId = route.params.postId;
+
+const params = {
+  offset: 1,
+  records: 2
 }
+const data = reactive({
+  post: {
+    tag: {
+      name: '',
+      color: ''
+    }
+  },
+  recentPosts: []
+})
+const getDetails = async () => {
+  const {data: res} = await axios.get(`http://127.0.0.1:3000/local/post/${postId}`)
+  const result = res.data
+  data.post = {...result}
+  pubsub.publish('setCurrentBackground', data.post.featureImage)
+}
+const getRecentPost = async () => {
+  const {data: res} = await axios.get('http://127.0.0.1:3000/local/post/selector', {params})
+  const result = res.data
+  data.recentPosts = [...result]
+}
+getDetails()
+getRecentPost()
 </script>

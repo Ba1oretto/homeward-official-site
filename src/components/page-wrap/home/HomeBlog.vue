@@ -14,7 +14,7 @@
           <div class="post-body transition-opacity ease-in-out duration-150 group-hover:opacity-90 text-center">
             <h3 class="font-bold text-white mb-1 text-xl">{{ post.title }}</h3>
             <div class="flex lg:items-center flex-col-reverse lg:flex-row text-gray-500 justify-center">
-              <div :style="getTagColor(post.tagColor)" class="font-semibold tracking-wide uppercase">{{ post.tag }}</div>
+              <div :style="getColor(post.tag.color)" class="font-semibold tracking-wide uppercase">{{ post.tag.name }}</div>
               <div class="mx-2 hidden lg:block">–</div>
               <div class="date">{{ getDate(post.createTime) }}</div>
             </div>
@@ -29,14 +29,17 @@
 </template>
 
 <script setup>
-import {getDate, getTagColor, getPostURL, getImageAddress} from "../../../hook/attribute-generator.js";
+import {getDate, getColor, getPostURL, getImageAddress} from "../../../hook/attribute-generator.js";
 import axios from "axios";
 import {reactive} from "vue";
 
+const params = {
+  records: 3
+}
 const postList = reactive([])
 
 const selectPost = async () => {
-  const {data: result } = await axios.get('local/post/home')
+  const {data: result } = await axios.get('local/post/selector', {params})
   postList.unshift(result.data[1], result.data[0], result.data[2])
 }
 selectPost()

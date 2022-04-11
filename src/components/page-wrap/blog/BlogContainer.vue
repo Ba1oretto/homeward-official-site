@@ -10,7 +10,7 @@
           <h3 class="font-bold text-white mb-1 text-xl text-2xl mb-3">{{ post.title }}</h3>
           <p class="excerpt h-full mb-4 text-gray-500">{{ textSubstring(post.excerpt, 180) }}</p>
           <div class="flex lg:items-center flex-col-reverse lg:flex-row text-gray-500">
-            <div class="font-semibold tracking-wide uppercase" :style="getTagColor(post.tagColor)">{{ post.tag }}</div>
+            <div class="font-semibold tracking-wide uppercase" :style="getColor(post.tag.color)">{{ post.tag.name }}</div>
             <div class="mx-2 hidden lg:block">–</div>
             <div class="date">{{ getDate(post.createTime) }}</div>
           </div>
@@ -41,7 +41,7 @@ export default {
 
 <script setup>
 import {reactive} from "vue";
-import {getDate, getPostURL, getTagColor, getImageAddress} from "../../../hook/attribute-generator.js";
+import {getDate, getPostURL, getColor, getImageAddress} from "../../../hook/attribute-generator.js";
 import axios from "axios";
 import pubsub from "pubsub-js";
 import {debounce} from "lodash";

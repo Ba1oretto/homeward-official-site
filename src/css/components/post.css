@@ -1,6 +1,17 @@
+.content-wrap {
+    @apply text-gray-500
+}
+
+.content-wrap p {
+    padding-bottom: 18px;
+    font-size: 18px;
+    line-height: 1.8
+}
+
 .content-wrap h1, .content-wrap h2, .content-wrap h3, .content-wrap h4, .content-wrap h5, .content-wrap h6 {
     @apply pb-2.5 font-bold text-white
 }
+
 .content-wrap h1 {
     font-size: 32px
 }

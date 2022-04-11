@@ -1,5 +1,7 @@
-const getTagColor = (tagColor) => {
-    return 'color: #' + tagColor
+import isBlank from "./isBlank.js";
+
+const getColor = (color) => {
+    return 'color: ' + color
 }
 
 const getPostURL =(name) => {
@@ -7,10 +9,12 @@ const getPostURL =(name) => {
 }
 
 const getImageAddress = (address) => {
-    return 'background-image: url(' + address + ')'
+    if (isBlank(address)) return false
+    return 'background-image: url(' + address.toString().replace('__GHOST_URL__', 'https://fantang.cc') + ')';
 }
 
 const getDate = (datetime) => {
+    if (isBlank(datetime)) return ''
     const date = new Date(datetime);
     const dateList = date.toDateString().split(' ');
     const month = dateList[1]
@@ -28,4 +32,9 @@ const getDate = (datetime) => {
     return month + ' ' + day + ordinal(day) + ', ' + year
 }
 
-export {getTagColor, getPostURL, getImageAddress, getDate}
+const generatePostContent = (html) => {
+    if (isBlank(html)) return false
+    return html.toString().replaceAll('__GHOST_URL__', 'https://fantang.cc')
+}
+
+export {getColor, getPostURL, getImageAddress, getDate, generatePostContent}
