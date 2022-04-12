@@ -10,7 +10,7 @@ const getPostURL =(name) => {
 
 const getImageAddress = (address) => {
     if (isBlank(address)) return false
-    return 'background-image: url(' + address.toString().replace('__GHOST_URL__', 'https://fantang.cc') + ')';
+    return 'background-image: url(' + address.toString().replace('__GHOST_URL__', 'https://ghost.ba1oretto.com') + ')';
 }
 
 const getDate = (datetime) => {
@@ -34,7 +34,7 @@ const getDate = (datetime) => {
 
 const generatePostContent = (html) => {
     if (isBlank(html)) return false
-    return html.toString().replaceAll('__GHOST_URL__', 'https://fantang.cc')
+    return html.toString().replaceAll('__GHOST_URL__', 'https://ghost.ba1oretto.com')
 }
 
 export {getColor, getPostURL, getImageAddress, getDate, generatePostContent}

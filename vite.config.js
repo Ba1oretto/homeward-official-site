@@ -7,14 +7,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/baioretto': {
-        target: 'https://ba1oretto.com/',
+        // target: 'https://ba1oretto.com/',
+          target: 'http://127.0.0.1:50012/',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/baioretto/, '')
-      },
-      '/local': {
-        target: 'http://127.0.0.1:50012/',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/local/, '')
+        // rewrite: path => path.replace(/^\/baioretto/, '')
+        rewrite: path => path.replace(/^\/baioretto\/homeward\/api/, '')
       }
     }
   }

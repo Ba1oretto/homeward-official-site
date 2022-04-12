@@ -16,7 +16,7 @@
     transition: all .2s ease-in-out;
 }
 .piston .top {
-    background: url(https://ba1oretto.com/webstore/images/piston/top.png) 50% no-repeat;
+    background: url(/src/assets/image/piston-top.png) 50% no-repeat;
     background-size: contain;
     width: 100px;
     position: relative;
@@ -27,7 +27,7 @@
 
 /* 活塞中部 */
 .piston .neck {
-    background: url(https://ba1oretto.com/webstore/images/piston/middle.png) top no-repeat;
+    background: url(/src/assets/image/pistion-neck.png) top no-repeat;
     background-size: 28px auto;
     width: 28px;
     margin: 0 auto;
@@ -42,7 +42,7 @@
 
 /* 活塞底座 */
 .piston .base {
-    background: url(https://ba1oretto.com/webstore/images/piston/bottom.png) top no-repeat;
+    background: url(/src/assets/image/pistion-base.png) top no-repeat;
     background-size: 100%;
     width: 100px;
     height: 54px;

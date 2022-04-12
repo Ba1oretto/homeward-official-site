@@ -1,27 +1,23 @@
 <template>
-  <div data-page="blog" class="page-bg" :style="getImageAddress(latest)"/>
-  <blog-container/>
-  <div class="stone-bg dark pt-10 pb-20 blog-offset"/>
+  <div data-page="blog" class="page-bg" :style="{backgroundImage:'url(' + latest + ')'}"/>
+  <component :is="currentComponent"></component>
 </template>
 
 <script>
 import BlogContainer from "./BlogContainer.vue";
-import PageHeader from "../../PageHeader.vue";
 
 export default {
   name: "BlogHub",
-  components: {BlogContainer, PageHeader}
+  components: {BlogContainer}
 }
 </script>
 
 <script setup>
-import {getImageAddress} from "../../../hook/attribute-generator.js";
-import {ref} from "vue";
-import pubsub from "pubsub-js";
+import {computed, ref} from "vue";
 
-const latest = ref('')
-const setCurrentBackground = (_, bg) => {
-  latest.value = bg
-}
-pubsub.subscribe('setCurrentBackground', setCurrentBackground)
+const currentComponent = ref('BlogContainer')
+
+const latest = computed(() => {
+  return 'https://ghost.ba1oretto.com/content/images/2022/04/Origin_Realms.jpg'
+})
 </script>

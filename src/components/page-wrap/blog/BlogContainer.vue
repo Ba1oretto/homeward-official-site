@@ -31,6 +31,7 @@
         </div>
       </div>
   </div>
+  <div class="stone-bg dark pt-10 pb-20 blog-offset"/>
 </template>
 
 <script>
@@ -46,6 +47,10 @@ import axios from "axios";
 import pubsub from "pubsub-js";
 import {debounce} from "lodash";
 
+const params = {
+  pageNum: 1,
+  pageSize: 8
+}
 const data = reactive({
   pagination: {},
   posts: []
@@ -69,12 +74,7 @@ const buttonCondition = {
 const superContainer = document.getElementById('app')
 
 const getPosts = async () => {
-  const {data: res} = await axios.get('baioretto/homeward/api/post/blog', {
-    params: {
-      pageNum: 1,
-      pageSize: 8
-    }
-  })
+  const {data: res} = await axios.get('baioretto/homeward/api/post/blog', {params})
   const result = res.data
   pubsub.publish('setCurrentBackground', result.posts[0].featureImage)
   data.pagination = {

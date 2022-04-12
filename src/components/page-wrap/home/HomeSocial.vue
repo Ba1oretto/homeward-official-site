@@ -3,7 +3,7 @@
     <div class="container mx-auto px-10 py-20 md:py-32">
       <div class="grid lg:grid-cols-2 gap-3 items-center">
         <div class="img text-center">
-          <img src="https://ba1oretto.com/home/robot.png" class="block mx-auto md:h-discord" alt="robot">
+          <img src="/src/assets/image/robot.png" class="block mx-auto md:h-discord" alt="robot">
         </div>
         <div class="text text-center lg:text-left">
           <h2 class="text-white text-3xl font-bold mb-4">Let's be social!</h2>
@@ -19,8 +19,4 @@
 export default {
   name: "HomeSocial"
 }
-</script>
-
-<script setup>
-
 </script>

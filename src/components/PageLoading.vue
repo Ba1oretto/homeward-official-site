@@ -1,6 +1,6 @@
 <template>
   <div :class="backgroundCondition" class="loading select-none fixed inset-0 z-50 transition-opacity ease-in-out duration-300 flex flex-col items-center justify-center bg-black/80">
-    <img src="https://ba1oretto.com/webstore/images/logo.gif" alt="Loading" class="animate-pulse">
+    <img src="/src/assets/image/animated-icon.gif" alt="Loading" class="animate-pulse">
     <div class="load-text font-bold uppercase text-4xl mt-3 animate-track">Loading...</div>
   </div>
 </template>

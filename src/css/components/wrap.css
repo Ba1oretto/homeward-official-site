@@ -2,7 +2,7 @@
     min-height: 600px;
     height: 70vh;
     z-index: -1;
-    background: url(https://ba1oretto.com/home/background.png) bottom no-repeat;
+    background: url(/src/assets/image/background.png) bottom no-repeat;
     background-size: cover;
 }
 .page-bg, .page-bg:after {
