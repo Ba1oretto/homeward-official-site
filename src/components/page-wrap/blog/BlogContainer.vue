@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
     <div v-if="containerAvailable" class="md:grid md:grid-cols-2 md:gap-10">
-        <a v-for="(post, index) in data.posts" :key="index" :href="getPostURL(post.slug)" @click="loadingPost" class="post mb-4 lg:mb-0 group">
+        <router-link v-for="(post, index) in data.posts" :to="getPostURL(post.slug)" class="post mb-4 lg:mb-0 group">
           <div class="cover-wrap mb-6">
             <div class="blackout"/>
             <div class="cover shadow-border bg-cover bg-center transition ease-in-out duration-150 group-hover:opacity-90 group-hover:shadow-purple-inner cover-lg" :style="getImageAddress(post.featureImage)"/>
@@ -15,7 +15,7 @@
               <div class="date">{{ getDate(post.createTime) }}</div>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
     <div v-if="containerAvailable" class="flex items-center justify-between bg-black/50 p-4 mt-10 mb-20">
         <div :class="button.prev" @click="changePage(false)" class="inline-block border border-lighten py-2 px-4 transition-all duration-150 ease-in-out">

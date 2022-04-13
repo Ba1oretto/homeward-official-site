@@ -11,39 +11,24 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: '/blog',
             name: 'blog',
-            components: {
-                default: blogHub,
-                header,
-                footer
-            }
+            path: '/blog',
+            component: blogHub
         },
         {
-            path: '/blog/:postId',
             name: 'post',
-            components: {
-                default: postHub,
-                header,
-                footer
-            }
+            path: '/blog/:postId',
+            component: postHub
         },
         {
-            path: '/rules',
             name: 'rules',
-            components: {
-                default: rulesHub,
-                header,
-                footer
-            }
+            path: '/rules',
+            components: rulesHub
         },
         {
             name: 'home',
             path: '/',
-            components: {
-                default: homeHub,
-                footer
-            }
+            components: homeHub
         }
     ]
 })

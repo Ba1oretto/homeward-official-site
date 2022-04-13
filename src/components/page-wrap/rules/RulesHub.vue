@@ -1,5 +1,5 @@
 <template>
-  <div data-page="rules" class="page-bg"/>
+  <slot/>
   <rules-container/>
 </template>
 

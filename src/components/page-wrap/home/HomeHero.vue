@@ -3,33 +3,7 @@
     <div data-page="home" class="page-bg"/>
     <nav class="nav mb-2 z-40 mt-5">
       <div class="container mx-auto">
-        <div class="mobile-toggle ml-auto block md:hidden p-8">
-          <div class="bar"/>
-          <div class="bar"/>
-          <div class="bar"/>
-        </div>
-        <div class="menu-collapse flex md:items-center flex-col md:flex-row md:justify-center">
-          <ul class="md:flex md:justify-center md:items-center md:mb-3 md:-mx-3 uppercase font-bold tracking-widest text-lg text-shadow">
-            <li class="mx-3 mb-3 md:mb-0">
-              <a href="/" class="flex items-center px-5 py-3 md:py-1 transition duration-200 border border-transparent hover:bg-nav-home hover:border-lighten bg-nav-home border-lighten">
-                <span class="block">Home</span>
-              </a>
-            </li>
-            <li class="mx-3 mb-3 md:mb-0">
-              <a href="/blog" class="flex items-center px-5 py-3 md:py-1 transition duration-200 border border-transparent hover:bg-nav-blog hover:border-lighten">
-                <span class="block">Blog</span>
-              </a>
-            </li>
-            <li class="mx-3 mb-3 md:mb-0">
-              <a href="/rules" class="flex items-center px-5 py-3 md:py-1 transition duration-200 border border-transparent hover:bg-nav-help hover:border-lighten">
-                <span class="block">Rules</span>
-              </a>
-            </li>
-            <li class="mx-3 mb-3 md:mb-0">
-              <a href="https://baioretto.com" class="flex items-center px-5 py-3 md:py-1 transition duration-200 bg-red-600/80 text-white hover:bg-red-500 border border-lighten">Store</a>
-            </li>
-          </ul>
-        </div>
+        <page-navigations/>
       </div>
     </nav>
     <div class="logo mx-auto mt-32">
@@ -60,6 +34,7 @@ export default {
 import {ref} from "vue";
 import {debounce} from "lodash";
 import {copy} from "../../../hook/clipboard.js";
+import PageNavigations from "../../PageNavigations.vue";
 
 const ipStyle = ref(true)
 

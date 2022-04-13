@@ -1,23 +1,16 @@
 <template>
-  <div data-page="blog" class="page-bg" :style="{backgroundImage:'url(' + latest + ')'}"/>
-  <component :is="currentComponent"></component>
+  <slot/>
+  <blog-container/>
 </template>
 
 <script>
-import BlogContainer from "./BlogContainer.vue";
-
 export default {
-  name: "BlogHub",
-  components: {BlogContainer}
+  name: "BlogHub"
 }
 </script>
 
 <script setup>
-import {computed, ref} from "vue";
-
-const currentComponent = ref('BlogContainer')
-
-const latest = computed(() => {
-  return 'https://ghost.ba1oretto.com/content/images/2022/04/Origin_Realms.jpg'
-})
+import {computed, shallowRef} from "vue";
+import blogContainer from "./BlogContainer.vue";
+import BlogContainer from "./BlogContainer.vue";
 </script>

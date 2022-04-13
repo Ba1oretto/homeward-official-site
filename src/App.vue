@@ -1,15 +1,18 @@
 <script setup>
-import PageWrap from "./components/PageWrap.vue";
-import PageLoading from "./components/PageLoading.vue";
+import {shallowRef} from "vue";
+import homeWrap from "./components/page-wrap/HomeWrap.vue";
+import otherWrap from "./components/page-wrap/OtherWrap.vue";
+import {useRouter} from "vue-router";
+
+useRouter().beforeEach((to) => {
+  currentBodyWrap.value = to.name === 'home' ? homeWrap : otherWrap
+})
+
+const currentBodyWrap = shallowRef(homeWrap)
 </script>
 
 <template>
-  <div id="_frame">
-    <div class="body-wrap grid grid-rows-body h-full">
-      <router-view name="header"/>
-      <page-wrap/>
-      <router-view name="footer"/>
-      <page-loading/>
-    </div>
-  </div>
+  <transition name="page" mode="out-in">
+    <component :is="currentBodyWrap"/>
+  </transition>
 </template>

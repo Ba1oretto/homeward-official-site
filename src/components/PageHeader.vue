@@ -6,37 +6,8 @@
       </a>
       <div class="right flex items-end flex-col">
         <nav class="nav mb-2 z-40">
-          <div>
-            <div class="mobile-toggle ml-auto block md:hidden p-8">
-              <div class="bar"/>
-              <div class="bar"/>
-              <div class="bar"/>
-            </div>
-            <div class="menu-collapse flex md:items-center flex-col md:flex-row">
-              <ul class="md:flex md:justify-center md:items-center md:mb-3 md:-mx-3 uppercase font-bold tracking-widest text-lg text-shadow">
-                <li class="mx-3 mb-3 md:mb-0">
-                  <a href="/" :class="currentPosition.home" class="flex items-center px-5 py-3 md:py-1 transition duration-200 border border-transparent hover:bg-nav-home hover:border-lighten">
-                    <span class="block">Home</span>
-                  </a>
-                </li>
-                <li class="mx-3 mb-3 md:mb-0">
-                  <a href="/blog" :class="currentPosition.blog" class="flex items-center px-5 py-3 md:py-1 transition duration-200 border border-transparent hover:bg-nav-blog hover:border-lighten">
-                    <span class="block">Blog</span>
-                  </a>
-                </li>
-                <li class="mx-3 mb-3 md:mb-0">
-                  <a href="/rules" :class="currentPosition.rules" class="flex items-center px-5 py-3 md:py-1 transition duration-200 border border-transparent hover:bg-nav-help hover:border-lighten">
-                    <span class="block">Rules</span>
-                  </a>
-                </li>
-                <li class="mx-3 mb-3 md:mb-0">
-                  <a href="https://baioretto.com" class="flex items-center px-5 py-3 md:py-1 transition duration-200 bg-red-600/80 text-white hover:bg-red-500 border border-lighten">Store</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <page-navigations/>
         </nav>
-
         <div class="server-bar text-right z-20 uppercase font-bold cursor-pointer hidden md:flex items-center">
           <div @click="copyIp" data-clipboard-text="play.fantang.cc" class="server-wrap server-minecraft flex flex-col relative font-bold text-sm uppercase flex flex-col justify-center items-center lg:items-stretch lg:flex-row transition-opacity duration-150 ease-in-out hover:opacity-80">
             <div class="server bg-ip-900 tracking-widest py-2 px-3 border border-lighten">play.fantang.com</div>
@@ -58,40 +29,21 @@
 </template>
 
 <script>
+import PageNavigations from "./PageNavigations.vue";
 export default {
-  name: "PageHeader"
+  name: "PageHeader",
+  components: {
+    PageNavigations
+  }
 }
 </script>
 
 <script setup>
-import {reactive, ref} from "vue";
+import {ref} from "vue";
 import {debounce} from "lodash";
 import {copy} from "../hook/clipboard.js";
-import {useRoute} from "vue-router";
 
 const ipStyle = ref(false)
-const currentPosition = reactive({
-  blog: '',
-  rules: '',
-})
-
-const route = useRoute()
-const currentPath = route.name
-
-switch (currentPath) {
-  case 'blog': {
-    currentPosition.blog = 'bg-nav-blog border-lighten'
-    break
-  }
-  case 'post': {
-    currentPosition.blog = 'bg-nav-blog border-lighten'
-    break
-  }
-  case 'rules': {
-    currentPosition.rules = 'bg-nav-help border-lighten'
-    break
-  }
-}
 
 const copyIp = () => {
   changeIpStyle()
