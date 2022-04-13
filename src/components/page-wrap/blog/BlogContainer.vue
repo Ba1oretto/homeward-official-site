@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
-    <div v-if="containerAvailable" class="md:grid md:grid-cols-2 md:gap-10">
-        <router-link v-for="(post, index) in data.posts" :to="getPostURL(post.slug)" class="post mb-4 lg:mb-0 group">
+    <div class="md:grid md:grid-cols-2 md:gap-10">
+        <router-link v-for="(post, index) in data.posts" :to="getPostURL(post.slug)" :key="index" @click="gotoPost" class="post mb-4 lg:mb-0 group">
           <div class="cover-wrap mb-6">
             <div class="blackout"/>
             <div class="cover shadow-border bg-cover bg-center transition ease-in-out duration-150 group-hover:opacity-90 group-hover:shadow-purple-inner cover-lg" :style="getImageAddress(post.featureImage)"/>
@@ -17,7 +17,7 @@
           </div>
         </router-link>
       </div>
-    <div v-if="containerAvailable" class="flex items-center justify-between bg-black/50 p-4 mt-10 mb-20">
+    <div class="flex items-center justify-between bg-black/50 p-4 mt-10 mb-20">
         <div :class="button.prev" @click="changePage(false)" class="inline-block border border-lighten py-2 px-4 transition-all duration-150 ease-in-out">
           <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8">
             <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
@@ -56,13 +56,6 @@ const data = reactive({
   posts: []
 })
 
-const containerAvailable = ref(false)
-const setLoading = debounce(() => {
-  pubsub.publish('changeLoadingBgCondition', false)
-  containerAvailable.value = true
-}, 600)
-
-
 const button = reactive({
   next: 'text-btn-text bg-btn shadow-btn hover:opacity-75 cursor-pointer',
   prev: 'text-gray-500 bg-gray-900 pointer-events-none'
@@ -89,6 +82,9 @@ const getPosts = async () => {
   button.next = data.pagination.next === null ? buttonCondition.disable : buttonCondition.enable
   button.prev = data.pagination.prev === null ? buttonCondition.disable : buttonCondition.enable
 }
+const gotoPost = () => {
+  pubsub.publish('changePageWrap', 'post')
+}
 
 const textSubstring = (text, position) => {
   return text.toString().substring(0, position) + '...'
@@ -98,7 +94,6 @@ const preventBounce = debounce((next) => {
   params.pageNum += next ? 1 : -1
   getPosts().then(() => {
     pubsub.publish('changeLoadingBgCondition', false)
-    containerAvailable.value = true
     superContainer.scrollIntoView()
     superContainer.removeEventListener('wheel', preventWheel)
   })
@@ -113,8 +108,7 @@ const changePage = (next) => {
     block: 'start'
   })
   pubsub.publish('changeLoadingBgCondition', true)
-  containerAvailable.value = false
   preventBounce(next)
 }
-getPosts().then(() => setLoading())
+getPosts()
 </script>

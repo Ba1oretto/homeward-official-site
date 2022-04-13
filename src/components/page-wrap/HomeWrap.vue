@@ -1,6 +1,7 @@
 <template>
   <div id="_frame">
     <div class="body-wrap grid grid-rows-body h-full">
+      <!--make -->
       <page-wrap/>
       <!--todo v-show-->
       <page-footer v-show="true"/>

@@ -1,9 +1,6 @@
 <template>
-  <!--<div data-page="post" class="page-bg" :style="getImageAddress(current)"/>-->
-  <!--<post-container/>-->
-  <div>
-    111
-  </div>
+  <div data-page="post" class="page-bg" :style="getImageAddress(current)"/>
+  <post-container/>
 </template>
 
 <script>
@@ -19,9 +16,9 @@ import {ref} from "vue";
 import pubsub from "pubsub-js";
 import {getImageAddress} from "../../../hook/attribute-generator.js";
 
-// const current = ref('')
-// const setCurrentBackground = (_, bg) => {
-//   current.value = bg
-// }
-// pubsub.subscribe('setCurrentBackground', setCurrentBackground)
+const current = ref('')
+const setCurrentBackground = (_, bg) => {
+  current.value = bg
+}
+pubsub.subscribe('setCurrentBackground', setCurrentBackground)
 </script>

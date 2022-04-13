@@ -1,8 +1,7 @@
 <template>
-  <!--todo singleton-->
+  <!--todo page wrap is a route component-->
   <transition name="page" mode="out-in">
     <div class="page-wrap">
-      <!--todo dynamic components-->
       <component :is="currentPageWrap">
         <div :data-page="currentPageWrap.name" class="page-bg" :style="{backgroundImage:'url(' + 'https://ghost.ba1oretto.com/content/images/2022/04/Origin_Realms.jpg' + ')'}"/>
       </component>
@@ -27,12 +26,10 @@ export default {
 </script>
 
 <script setup>
-import {onMounted, shallowRef} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {shallowRef} from "vue";
+import {useRoute} from "vue-router";
 import pubsub from "pubsub-js";
 import isBlank from "../hook/isBlank.js";
-
-useRoute().name
 
 const changePageWrap = (_, name) => {
   if (!isBlank(name)) currentPageWrap.value = name
