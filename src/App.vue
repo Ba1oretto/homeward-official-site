@@ -1,7 +1,7 @@
 <script setup>
 import {shallowRef} from "vue";
-import homeWrap from "./components/page-wrap/HomeWrap.vue";
-import otherWrap from "./components/page-wrap/OtherWrap.vue";
+import homeWrap from "./components/HomeWrap.vue";
+import otherWrap from "./components/OtherWrap.vue";
 import {useRouter} from "vue-router";
 
 useRouter().beforeEach((to) => {

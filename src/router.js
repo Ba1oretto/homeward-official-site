@@ -1,9 +1,9 @@
 import {createRouter, createWebHistory} from "vue-router";
 
 const homeHub = () => import('./components/page-wrap/home/HomeHub.vue')
-const rulesHub = () => import('./components/page-wrap/rules/RulesHub.vue')
-const blogHub = () => import('./components/page-wrap/blog/BlogHub.vue')
-const postHub = () => import('./components/page-wrap/post/PostHub.vue')
+const rulePage = () => import('./components/page-wrap/rules/RulePage.vue')
+const blogPage = () => import('./components/page-wrap/blog/BlogPage.vue')
+const postPage = () => import('./components/page-wrap/post/PostPage.vue')
 
 const router = createRouter({
     history: createWebHistory(),
@@ -11,17 +11,17 @@ const router = createRouter({
         {
             name: 'blog',
             path: '/blog',
-            component: blogHub
+            component: blogPage
         },
         {
             name: 'post',
             path: '/blog/:postId',
-            component: postHub
+            component: postPage
         },
         {
-            name: 'rules',
-            path: '/rules',
-            component: rulesHub
+            name: 'rule',
+            path: '/rule',
+            component: rulePage
         },
         {
             name: 'home',

@@ -22,7 +22,7 @@
         </a>
       </div>
       <div class="text-center pt-10 pb-32">
-        <a href="/blog" class="inline-block bg-btn border border-lighten py-4 px-8 text-xl shadow-btn uppercase font-extrabold tracking-wide text-btn-text transition-all duration-150 ease-in-out hover:opacity-75 hover:px-10 hover:tracking-widest">View all Posts</a>
+        <router-link to="/blog" class="inline-block bg-btn border border-lighten py-4 px-8 text-xl shadow-btn uppercase font-extrabold tracking-wide text-btn-text transition-all duration-150 ease-in-out hover:opacity-75 hover:px-10 hover:tracking-widest">View all Posts</router-link>
       </div>
     </div>
   </section>

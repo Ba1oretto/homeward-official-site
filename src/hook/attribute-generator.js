@@ -37,4 +37,9 @@ const generatePostContent = (html) => {
     return html.toString().replaceAll('__GHOST_URL__', 'https://ghost.ba1oretto.com')
 }
 
-export {getColor, getPostURL, getImageAddress, getDate, generatePostContent}
+const textSubstring = (rawText, position) => {
+    if (rawText.toString().length >= position) return rawText.toString().substring(0, position) + '...'
+    else return rawText
+}
+
+export {getColor, getPostURL, getImageAddress, getDate, generatePostContent, textSubstring}

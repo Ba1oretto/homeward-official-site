@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
     <div class="md:grid md:grid-cols-2 md:gap-10">
-        <router-link v-for="(post, index) in data.posts" :to="getPostURL(post.slug)" :key="index" @click="gotoPost" class="post mb-4 lg:mb-0 group">
+        <router-link v-for="(post, index) in data.posts" :to="getPostURL(post.slug)" :key="index" class="post mb-4 lg:mb-0 group">
           <div class="cover-wrap mb-6">
             <div class="blackout"/>
             <div class="cover shadow-border bg-cover bg-center transition ease-in-out duration-150 group-hover:opacity-90 group-hover:shadow-purple-inner cover-lg" :style="getImageAddress(post.featureImage)"/>
@@ -41,11 +41,12 @@ export default {
 </script>
 
 <script setup>
-import {reactive, ref} from "vue";
-import {getDate, getPostURL, getColor, getImageAddress} from "../../../hook/attribute-generator.js";
+import {reactive} from "vue";
+import {getDate, getPostURL, getColor, getImageAddress, textSubstring} from "../../../hook/attribute-generator.js";
 import axios from "axios";
-import pubsub from "pubsub-js";
+import {publishSync} from "pubsub-js";
 import {debounce} from "lodash";
+import {onBeforeRouteLeave} from "vue-router";
 
 const params = {
   pageNum: 1,
@@ -56,6 +57,7 @@ const data = reactive({
   posts: []
 })
 
+
 const button = reactive({
   next: 'text-btn-text bg-btn shadow-btn hover:opacity-75 cursor-pointer',
   prev: 'text-gray-500 bg-gray-900 pointer-events-none'
@@ -64,12 +66,12 @@ const buttonCondition = {
   disable: 'text-gray-500 bg-gray-900 pointer-events-none',
   enable: 'text-btn-text bg-btn shadow-btn hover:opacity-75 cursor-pointer'
 }
-const superContainer = document.getElementById('app')
 
-const getPosts = async () => {
+
+const selectPostsList = async () => {
   const {data: res} = await axios.get('baioretto/homeward/api/post/blog', {params})
   const result = res.data
-  pubsub.publish('setCurrentBackground', result.posts[0].featureImage)
+  publishSync('setCurrentBackground', result.posts[0].featureImage)
   data.pagination = {
     pageNum: result.pageNum,
     pageSize: result.pageSize,
@@ -82,33 +84,33 @@ const getPosts = async () => {
   button.next = data.pagination.next === null ? buttonCondition.disable : buttonCondition.enable
   button.prev = data.pagination.prev === null ? buttonCondition.disable : buttonCondition.enable
 }
-const gotoPost = () => {
-  pubsub.publish('changePageWrap', 'post')
-}
 
-const textSubstring = (text, position) => {
-  return text.toString().substring(0, position) + '...'
-}
 
+const preventWheel = (event) => {
+  event.preventDefault()
+}
+const superContainer = document.getElementById('app')
 const preventBounce = debounce((next) => {
   params.pageNum += next ? 1 : -1
-  getPosts().then(() => {
-    pubsub.publish('changeLoadingBgCondition', false)
+  selectPostsList().then(() => {
+    publishSync('changeLoadingBgCondition', false)
     superContainer.scrollIntoView()
     superContainer.removeEventListener('wheel', preventWheel)
   })
 }, 600)
-const preventWheel = (event) => {
-  event.preventDefault()
-}
 const changePage = (next) => {
   superContainer.addEventListener('wheel', preventWheel)
-  superContainer.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start'
-  })
-  pubsub.publish('changeLoadingBgCondition', true)
+  window.scroll({top: 0, behavior: "smooth"})
+  publishSync('changeLoadingBgCondition', true)
   preventBounce(next)
 }
-getPosts()
+selectPostsList().then(() => {
+  publishSync('changeFooterCondition', true)
+  publishSync('changeLoadingBgCondition', false)
+})
+
+onBeforeRouteLeave(() => {
+  publishSync('changeFooterCondition', false)
+  publishSync('changeLoadingBgCondition', true)
+})
 </script>

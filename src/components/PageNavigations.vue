@@ -52,8 +52,8 @@ const navigations = reactive({
     enable: false
   },
   rule: {
-    name: 'rules',
-    path: '/rules',
+    name: 'rule',
+    path: '/rule',
     style: {
       active: 'bg-nav-help border-lighten',
       inactive: 'hover:bg-nav-help'

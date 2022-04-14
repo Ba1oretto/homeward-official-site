@@ -18,7 +18,7 @@
         <h5 class="mb-0 text-gray-500">Check out some of our other posts if you haven’t already!</h5>
       </div>
       <div class="grid gap-8 lg:grid-cols-2 md:px-10">
-        <a v-for="post in data.recentPosts" :href="getPostURL(post.slug)" class="post mb-4 lg:mb-0 group">
+        <router-link v-for="post in data.recentPosts" :to="getPostURL(post.slug)" @click="disableFooter" class="post mb-4 lg:mb-0 group">
           <div class="cover-wrap mb-6">
             <div class="blackout"/>
             <div :style="getImageAddress(post.featureImage)" class="cover shadow-border bg-cover bg-center transition ease-in-out duration-150 group-hover:opacity-90 group-hover:shadow-purple-inner"/>
@@ -31,7 +31,7 @@
               <div class="date">{{ getDate(post.createTime) }}</div>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
     </div>
   </div>
@@ -46,8 +46,10 @@ export default {
 <script setup>
 import {getDate, getImageAddress, getColor, getPostURL, generatePostContent} from "../../../hook/attribute-generator.js";
 import {reactive} from "vue";
-import {useRoute} from "vue-router";
+import {onBeforeRouteLeave, useRoute} from "vue-router";
 import axios from "axios";
+import {publishSync} from "pubsub-js";
+import {onPageEnter, onPageLeave} from "../../../hook/appearance.js";
 
 const route = useRoute()
 const postId = route.params.postId;
@@ -62,22 +64,32 @@ const data = reactive({
   recentPosts: []
 })
 
-const getDetails = async () => {
-  const {data: res} = await axios.get(`http://127.0.0.1:3000/baioretto/homeward/api/post/${postId}`)
-  const result = res.data
-  data.post = {...result}
-}
-const getRecentPost = async () => {
-  const {data: res} = await axios.get('http://127.0.0.1:3000/baioretto/homeward/api/post/selector', {
-    params: {
-      offset: 1,
-      records: 2
-    }
+const selectPostAndPreviewList = async () => {
+  const requestList = [
+    {url: `http://127.0.0.1:3000/baioretto/homeward/api/post/${postId}`, params: null},
+    {url: 'http://127.0.0.1:3000/baioretto/homeward/api/post/selector', params: {offset: 1, records: 2}}
+  ]
+  await Promise.all(requestList.map((endpoint) => {
+    axios.get(endpoint.url, {params: {...endpoint.params}}).then(
+        ({data: result}) => {
+          if (result.data instanceof Array) {
+            data.recentPosts = [...result.data]
+          } else {
+            data.post = {...result.data}
+          }
+        }
+    )
+  })).then(() => {
+    onPageEnter()
   })
-  const result = res.data
-  data.recentPosts = [...result]
 }
+selectPostAndPreviewList()
 
-getDetails()
-getRecentPost()
+
+const disableFooter = () => {
+  publishSync('changeFooterCondition', false)
+}
+onBeforeRouteLeave(() => {
+  onPageLeave()
+})
 </script>

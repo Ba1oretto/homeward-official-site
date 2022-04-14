@@ -33,7 +33,8 @@
 
 <script setup>
 import {onMounted} from "vue";
-import pubsub from "pubsub-js";
+import {publishSync} from "pubsub-js";
+import {onBeforeRouteLeave} from "vue-router";
 
 const rules = [
   {
@@ -77,7 +78,14 @@ const rules = [
   }
 ]
 onMounted(() => {
-  pubsub.publish('changeLoadingBgCondition', false)
+  publishSync('changeFooterCondition', true)
+  publishSync('changeLoadingBgCondition', false)
+})
+
+
+onBeforeRouteLeave(() => {
+  publishSync('changeFooterCondition', false)
+  publishSync('changeLoadingBgCondition', true)
 })
 </script>
 
