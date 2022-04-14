@@ -47,6 +47,7 @@ import axios from "axios";
 import {publishSync} from "pubsub-js";
 import {debounce} from "lodash";
 import {onBeforeRouteLeave} from "vue-router";
+import {onPageEnter, onPageLeave} from "../../../hook/appearance.js";
 
 const params = {
   pageNum: 1,
@@ -105,12 +106,10 @@ const changePage = (next) => {
   preventBounce(next)
 }
 selectPostsList().then(() => {
-  publishSync('changeFooterCondition', true)
-  publishSync('changeLoadingBgCondition', false)
+  onPageEnter()
 })
 
 onBeforeRouteLeave(() => {
-  publishSync('changeFooterCondition', false)
-  publishSync('changeLoadingBgCondition', true)
+  onPageLeave()
 })
 </script>

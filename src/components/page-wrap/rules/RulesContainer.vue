@@ -33,8 +33,8 @@
 
 <script setup>
 import {onMounted} from "vue";
-import {publishSync} from "pubsub-js";
 import {onBeforeRouteLeave} from "vue-router";
+import {onPageEnter, onPageLeave} from "../../../hook/appearance.js";
 
 const rules = [
   {
@@ -78,14 +78,12 @@ const rules = [
   }
 ]
 onMounted(() => {
-  publishSync('changeFooterCondition', true)
-  publishSync('changeLoadingBgCondition', false)
+  onPageEnter()
 })
 
 
 onBeforeRouteLeave(() => {
-  publishSync('changeFooterCondition', false)
-  publishSync('changeLoadingBgCondition', true)
+  onPageLeave()
 })
 </script>
 
