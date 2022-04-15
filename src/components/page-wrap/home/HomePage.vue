@@ -1,11 +1,13 @@
 <template>
-  <home-hero/>
-  <home-video/>
-  <home-blog/>
-  <home-staff/>
-  <home-social/>
-  <div class="stone-bg dark pb-5"/>
-  <home-video-player/>
+  <div class="page-wrap">
+    <home-hero/>
+    <home-video/>
+    <home-blog/>
+    <home-staff/>
+    <home-social/>
+    <div class="stone-bg dark pb-5"/>
+    <home-video-player/>
+  </div>
 </template>
 
 <script>
@@ -16,16 +18,7 @@ import HomeSocial from "./HomeSocial.vue";
 import HomeVideoPlayer from "./HomeVideoPlayer.vue";
 import HomeStaff from "./HomeStaff.vue";
 export default {
-  name: "HomeHub",
+  name: "HomePage",
   components: {HomeStaff, HomeVideoPlayer, HomeSocial, HomeBlog, HomeVideo, HomeHero},
 }
-</script>
-
-<script setup>
-import {onMounted} from "vue";
-import pubsub from "pubsub-js";
-
-onMounted(() => {
-  pubsub.publish('changeLoadingBgCondition', false)
-})
 </script>

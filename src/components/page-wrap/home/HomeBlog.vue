@@ -6,7 +6,7 @@
         <h5 class="text-gray-500 font-medium">Stay up to date with the latest blog posts!</h5>
       </div>
       <div class="posts grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-        <a v-for="post in postList" :href="getPostURL(post.slug)" class="post mb-4 lg:mb-0 group">
+        <router-link v-for="post in postList" :to="getPostURL(post.slug)" class="post mb-4 lg:mb-0 group">
           <div class="cover-wrap mb-6">
             <div class="blackout"/>
             <div :style="getImageAddress(post.featureImage)" class="cover shadow-border bg-cover bg-center transition ease-in-out duration-150 group-hover:opacity-90 group-hover:shadow-purple-inner"/>
@@ -19,7 +19,7 @@
               <div class="date">{{ getDate(post.createTime) }}</div>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
       <div class="text-center pt-10 pb-32">
         <router-link to="/blog" class="inline-block bg-btn border border-lighten py-4 px-8 text-xl shadow-btn uppercase font-extrabold tracking-wide text-btn-text transition-all duration-150 ease-in-out hover:opacity-75 hover:px-10 hover:tracking-widest">View all Posts</router-link>
@@ -32,6 +32,8 @@
 import {getDate, getColor, getPostURL, getImageAddress} from "../../../hook/attribute-generator.js";
 import axios from "axios";
 import {reactive} from "vue";
+import {onBeforeRouteLeave} from "vue-router";
+import {onPageEnter, onPageLeave} from "../../../hook/appearance.js";
 
 const params = {
   records: 3
@@ -43,7 +45,13 @@ const selectPost = async () => {
   if (result.data.length === 0) return false
   postList.unshift(result.data[1], result.data[0], result.data[2])
 }
-selectPost()
+selectPost().then(() => {
+  onPageEnter()
+})
+
+onBeforeRouteLeave(() => {
+  onPageLeave()
+})
 </script>
 
 <script>

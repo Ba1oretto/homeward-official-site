@@ -1,18 +1,18 @@
-<script setup>
-import {shallowRef} from "vue";
-import homeWrap from "./components/HomeWrap.vue";
-import otherWrap from "./components/OtherWrap.vue";
-import {useRouter} from "vue-router";
-
-useRouter().beforeEach((to) => {
-  currentBodyWrap.value = to.name === 'home' ? homeWrap : otherWrap
-})
-
-const currentBodyWrap = shallowRef(homeWrap)
-</script>
-
 <template>
   <transition name="page" mode="out-in">
     <component :is="currentBodyWrap"/>
   </transition>
 </template>
+
+<script setup>
+import {shallowRef} from "vue";
+import HomeFrame from "./components/HomeFrame.vue";
+import OtherFrame from "./components/OtherFrame.vue";
+import {useRouter} from "vue-router";
+
+useRouter().beforeEach((to) => {
+  currentBodyWrap.value = to.name === 'home' ? HomeFrame : OtherFrame
+})
+
+const currentBodyWrap = shallowRef(HomeFrame)
+</script>
