@@ -34,18 +34,15 @@ export default {
 import {ref} from "vue";
 import {debounce} from "lodash";
 import {copy} from "../../../hook/clipboard.js";
-import PageNavigations from "../../PageNavigations.vue";
+import PageNavigations from "../../page/PageNavigations.vue";
 
 const ipStyle = ref(true)
-
 const copyIp = () => {
   changeIpStyle()
 }
-
 const privateBounce = debounce(() => {
   ipStyle.value = true
 }, 5000)
-
 const changeIpStyle = () => {
   ipStyle.value = false
   copy('.cursor-pointer.group.inline-block.mx-auto')

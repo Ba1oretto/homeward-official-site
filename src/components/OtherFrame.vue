@@ -15,6 +15,6 @@ export default {
 
 <script setup>
 
-import PageHeader from "./PageHeader.vue";
+import PageHeader from "./page/PageHeader.vue";
 import MainBody from "./MainBody.vue";
 </script>

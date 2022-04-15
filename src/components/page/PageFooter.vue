@@ -61,7 +61,7 @@
 <script setup>
 import {shallowRef} from "vue";
 import {debounce} from "lodash";
-import {copy} from "../hook/clipboard.js";
+import {copy} from "../../hook/clipboard.js";
 import {subscribe} from "pubsub-js";
 
 const ipStyle = shallowRef(false)

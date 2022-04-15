@@ -76,6 +76,7 @@ const selectPostAndPreviewList = async () => {
             data.recentPosts = [...result.data]
           } else {
             data.post = {...result.data}
+            publishSync('setCurrentBackground', data.post.featureImage)
           }
         }
     )

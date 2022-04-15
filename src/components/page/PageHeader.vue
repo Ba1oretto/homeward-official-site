@@ -1,7 +1,7 @@
 <template>
   <header class="page-header mb-16">
     <div class="container mx-auto sm:px-10 lg:px-20 flex items-center justify-between">
-      <a href="/">
+      <a href="/public">
         <img src="/src/assets/image/logo.png" class="max-h-24 sm:h-24 my-6" alt="logo">
       </a>
       <div class="right flex items-end flex-col">
@@ -39,7 +39,7 @@ export default {
 <script setup>
 import {ref} from "vue";
 import {debounce} from "lodash";
-import {copy} from "../hook/clipboard.js";
+import {copy} from "../../hook/clipboard.js";
 
 const ipStyle = ref(false)
 

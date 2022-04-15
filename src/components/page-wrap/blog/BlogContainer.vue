@@ -17,7 +17,7 @@
           </div>
         </router-link>
       </div>
-    <div class="flex items-center justify-between bg-black/50 p-4 mt-10 mb-20">
+    <div v-show="barVisible" class="flex items-center justify-between bg-black/50 p-4 mt-10 mb-20">
         <div :class="button.prev" @click="changePage(false)" class="inline-block border border-lighten py-2 px-4 transition-all duration-150 ease-in-out">
           <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8">
             <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
@@ -41,7 +41,7 @@ export default {
 </script>
 
 <script setup>
-import {reactive} from "vue";
+import {reactive, shallowRef} from "vue";
 import {getDate, getPostURL, getColor, getImageAddress, textSubstring} from "../../../hook/attribute-generator.js";
 import axios from "axios";
 import {publishSync} from "pubsub-js";
@@ -67,6 +67,7 @@ const buttonCondition = {
   disable: 'text-gray-500 bg-gray-900 pointer-events-none',
   enable: 'text-btn-text bg-btn shadow-btn hover:opacity-75 cursor-pointer'
 }
+const barVisible = shallowRef(false)
 
 
 const selectPostsList = async () => {
@@ -111,5 +112,6 @@ selectPostsList().then(() => {
 
 onBeforeRouteLeave(() => {
   onPageLeave()
+  barVisible.value = true
 })
 </script>
