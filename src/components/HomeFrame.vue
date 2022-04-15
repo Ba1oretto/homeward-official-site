@@ -13,6 +13,5 @@ export default {
 </script>
 
 <script setup>
-
 import MainBody from "./MainBody.vue";
 </script>

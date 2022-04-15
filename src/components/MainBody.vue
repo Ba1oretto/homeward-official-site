@@ -2,7 +2,7 @@
   <router-view v-slot="{ Component, route }">
     <transition name="page" mode="out-in">
       <component :is="Component" :key="route.path">
-        <div :data-page="route.name" class="page-bg" :style="bgImg.enable ? getImageAddress(bgImg.url) : ''"/>
+        <div :data-page="route.name" class="page-bg sm" :style="getImageAddress(bgImg.url)"/>
       </component>
     </transition>
   </router-view>
@@ -25,7 +25,7 @@ import {getImageAddress} from "../hook/attribute-generator.js";
 
 const bgImg = reactive({
   enable: false,
-  url: ''
+  url: '__GHOST_URL__/content/images/2022/04/Origin_Realms-1.jpg'
 })
 const setCurrentBackground = (_, path) => {
   bgImg.url = path

@@ -1,7 +1,7 @@
 <template>
   <header class="page-header mb-16">
     <div class="container mx-auto sm:px-10 lg:px-20 flex items-center justify-between">
-      <a href="/public">
+      <a href="/">
         <img src="/src/assets/image/logo.png" class="max-h-24 sm:h-24 my-6" alt="logo">
       </a>
       <div class="right flex items-end flex-col">

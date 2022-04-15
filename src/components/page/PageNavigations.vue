@@ -1,12 +1,12 @@
 <template>
-  <div class="mobile-toggle ml-auto block md:hidden p-8">
+  <div :class="{active: isActive}" @click="isActive = !isActive" class="mobile-toggle ml-auto block md:hidden p-8">
     <div class="bar"/>
     <div class="bar"/>
     <div class="bar"/>
   </div>
-  <div class="menu-collapse flex md:items-center flex-col md:flex-row md:justify-center">
+  <div :class="{active: isActive}" class="menu-collapse flex md:items-center flex-col md:flex-row md:justify-center">
     <ul class="md:flex md:justify-center md:items-center md:mb-3 md:-mx-3 uppercase font-bold tracking-widest text-lg text-shadow">
-      <li @click="changePage(nav.name)" v-for="nav in navigations" class="mx-3 mb-3 md:mb-0">
+      <li v-for="nav in navigations" class="mx-3 mb-3 md:mb-0">
         <router-link :to="nav.path" :class="nav.enable ? nav.style.active : nav.style.inactive" class="flex items-center px-5 py-3 md:py-1 transition duration-200 border border-transparent hover:border-lighten">
           <span class="block">{{nav.name}}</span>
         </router-link>
@@ -25,13 +25,10 @@ export default {
 </script>
 
 <script setup>
-import {reactive} from "vue";
-import pubsub from "pubsub-js";
+import {reactive, shallowRef} from "vue";
+import {subscribe} from "pubsub-js";
 
-const changePage = (name) => {
-  pubsub.publish('changePageWrap', name)
-}
-
+const isActive = shallowRef(false)
 const navigations = reactive({
   home: {
     name: 'home',
@@ -40,7 +37,7 @@ const navigations = reactive({
       active: 'bg-nav-home border-lighten',
       inactive: 'hover:bg-nav-home'
     },
-    enable: false
+    enable: true
   },
   blog: {
     name: 'blog',
@@ -61,4 +58,19 @@ const navigations = reactive({
     enable: false
   },
 })
+const setCurrentMenu = (_, name) => {
+  switch (name) {
+    case 'blog': {
+      navigations.blog.enable = true
+      navigations.home.enable = navigations.rule.enable = false
+      break
+    }
+    case 'rule': {
+      navigations.rule.enable = true
+      navigations.home.enable = navigations.blog.enable = false
+      break
+    }
+  }
+}
+subscribe('setCurrentMenu', setCurrentMenu)
 </script>

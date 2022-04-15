@@ -10,4 +10,8 @@ const onPageEnter = () => {
     publishSync('changeLoadingBgCondition', false)
 }
 
-export {onPageLeave, onPageEnter}
+const setCurrentMenu = (name) => {
+    publishSync('setCurrentMenu', name)
+}
+
+export {onPageLeave, onPageEnter, setCurrentMenu}

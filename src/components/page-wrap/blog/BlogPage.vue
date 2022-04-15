@@ -13,4 +13,7 @@ export default {
 
 <script setup>
 import BlogContainer from "./BlogContainer.vue";
+import {setCurrentMenu} from "../../../hook/appearance.js";
+
+setCurrentMenu('blog')
 </script>

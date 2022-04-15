@@ -12,6 +12,8 @@ export default {
 </script>
 
 <script setup>
-
 import RulesContainer from "./RulesContainer.vue";
+import {setCurrentMenu} from "../../../hook/appearance.js";
+
+setCurrentMenu('rule')
 </script>

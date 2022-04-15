@@ -18,7 +18,7 @@
         <h5 class="mb-0 text-gray-500">Check out some of our other posts if you haven’t already!</h5>
       </div>
       <div class="grid gap-8 lg:grid-cols-2 md:px-10">
-        <router-link v-for="post in data.recentPosts" :to="getPostURL(post.slug)" @click="disableFooter" class="post mb-4 lg:mb-0 group">
+        <router-link v-for="post in data.recentPosts" :to="getPostURL(post.slug)" @click="onchange" class="post mb-4 lg:mb-0 group">
           <div class="cover-wrap mb-6">
             <div class="blackout"/>
             <div :style="getImageAddress(post.featureImage)" class="cover shadow-border bg-cover bg-center transition ease-in-out duration-150 group-hover:opacity-90 group-hover:shadow-purple-inner"/>
@@ -67,13 +67,21 @@ const data = reactive({
 const selectPostAndPreviewList = async () => {
   const requestList = [
     {url: `http://127.0.0.1:3000/baioretto/homeward/api/post/${postId}`, params: null},
-    {url: 'http://127.0.0.1:3000/baioretto/homeward/api/post/selector', params: {offset: 1, records: 2}}
+    {url: 'http://127.0.0.1:3000/baioretto/homeward/api/post/selector', params: {records: 3}}
   ]
   await Promise.all(requestList.map((endpoint) => {
     axios.get(endpoint.url, {params: {...endpoint.params}}).then(
         ({data: result}) => {
           if (result.data instanceof Array) {
             data.recentPosts = [...result.data]
+            let isFormatted = false
+            data.recentPosts.forEach((value, index) => {
+              if (value.slug === postId) {
+                data.recentPosts.splice(index, 1)
+                isFormatted = true
+              }
+            })
+            if (!isFormatted) data.recentPosts.pop()
           } else {
             data.post = {...result.data}
             publishSync('setCurrentBackground', data.post.featureImage)
@@ -87,7 +95,8 @@ const selectPostAndPreviewList = async () => {
 selectPostAndPreviewList()
 
 
-const disableFooter = () => {
+const onchange = () => {
+  window.scroll({top: 0, behavior:"smooth"})
   publishSync('changeFooterCondition', false)
 }
 onBeforeRouteLeave(() => {

@@ -73,7 +73,7 @@
     right: 0;
     height: 280px;
 }
-@screen xsm {
+@media (min-width: 478px) {
     #staff .island {
         top: 120px;
     }

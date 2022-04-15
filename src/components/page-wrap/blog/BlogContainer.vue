@@ -108,10 +108,10 @@ const changePage = (next) => {
 }
 selectPostsList().then(() => {
   onPageEnter()
+  barVisible.value = true
 })
 
 onBeforeRouteLeave(() => {
   onPageLeave()
-  barVisible.value = true
 })
 </script>

@@ -17,6 +17,7 @@ import HomeBlog from "./HomeBlog.vue";
 import HomeSocial from "./HomeSocial.vue";
 import HomeVideoPlayer from "./HomeVideoPlayer.vue";
 import HomeStaff from "./HomeStaff.vue";
+
 export default {
   name: "HomePage",
   components: {HomeStaff, HomeVideoPlayer, HomeSocial, HomeBlog, HomeVideo, HomeHero},
