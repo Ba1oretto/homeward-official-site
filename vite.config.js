@@ -6,12 +6,11 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     proxy: {
-      '/baioretto': {
-        // target: 'https://ba1oretto.com/',
+      '/homeward/api': {
           target: 'http://127.0.0.1:50012/',
         changeOrigin: true,
         // rewrite: path => path.replace(/^\/baioretto/, '')
-        rewrite: path => path.replace(/^\/baioretto\/homeward\/api/, '')
+        rewrite: path => path.replace(/^\/homeward\/api/, '')
       }
     }
   }

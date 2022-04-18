@@ -15,8 +15,8 @@ const getImageAddress = (address) => {
 
 const getDate = (datetime) => {
     if (isBlank(datetime)) return ''
-    const date = new Date(datetime);
-    const dateList = date.toDateString().split(' ');
+    const date = new Date(datetime.toString().replace(/-/g, '/'))
+    const dateList = date.toDateString().split(' ')
     const month = dateList[1]
     const day = dateList[2].replace('0', '')
     const year = dateList[3]

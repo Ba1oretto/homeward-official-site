@@ -64,12 +64,13 @@ const data = reactive({
   recentPosts: []
 })
 
+
 const selectPostAndPreviewList = async () => {
   const requestList = [
-    {url: `http://127.0.0.1:3000/baioretto/homeward/api/post/${postId}`, params: null},
-    {url: 'http://127.0.0.1:3000/baioretto/homeward/api/post/selector', params: {records: 3}}
+    {url: `/homeward/api/post/${postId}`, params: null},
+    {url: '/homeward/api/post/selector', params: {records: 3}}
   ]
-  await Promise.all(requestList.map((endpoint) => {
+  Promise.all(requestList.map((endpoint) => {
     axios.get(endpoint.url, {params: {...endpoint.params}}).then(
         ({data: result}) => {
           if (result.data instanceof Array) {

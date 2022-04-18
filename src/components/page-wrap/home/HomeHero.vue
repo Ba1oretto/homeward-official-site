@@ -14,10 +14,10 @@
         <div class="server bg-ip-900 tracking-widest py-2 px-3 border border-lighten shadow-ip">play.fantang.cc</div>
         <div class="flex items-center ml-auto px-3 tracking-wide bg-ip-800 text-ip-400 !-ml-px border shadow-ip-count border-lighten text-sm">169</div>
       </div>
-      <div class="tooltips font-extrabold text-sm text-center tracking-widest uppercase mt-4 text-white relative text-shadow-md">
+      <div class="tooltips font-extrabold text-sm text-center tracking-0.35 uppercase mt-4 text-white relative text-shadow-md">
         <transition name="tooltip" mode="out-in">
-          <p v-if="ipStyle">Click to Copy</p>
-          <p v-else-if="!ipStyle">Copied to Clipboard</p>
+          <p v-if="ipStyle">点击复制</p>
+          <p v-else-if="!ipStyle">复制成功</p>
         </transition>
       </div>
     </div>

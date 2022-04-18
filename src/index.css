@@ -6,15 +6,9 @@
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-        font-family: proxima-nova;
-        src: url("/src/assets/proximanova.ttf");
-    }
-
     body {
         background: #000;
         color: #fff;
-        font-family: proxima-nova,sans-serif;
     }
 
     #app, #_frame, body, html {

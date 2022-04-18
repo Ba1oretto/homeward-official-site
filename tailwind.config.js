@@ -23,6 +23,11 @@ module.exports = {
         'discord': '350px',
         'img': '600px'
       },
+      letterSpacing: {
+        '0.15': '.15rem',
+        '0.2': '.2rem',
+        '0.35': '.35em',
+      },
       colors: {
         pink: {
           '600': '#e672bb'

@@ -4,14 +4,14 @@
       <div class="container mx-auto relative z-10">
         <div class="staff">
           <div class="pt-10 lg:hidden">
-            <h3 class="text-white text-3xl font-bold">Meet The Team</h3>
+            <h3 class="text-white text-3xl font-bold tracking-0.2">认识大伙</h3>
             <h5 class="text-gray-500">Learn about the people who make Origin Realms amazing!</h5>
           </div>
           <div class="staff-members">
             <div class="member flex flex-col-reverse lg:grid lg:grid-cols-staff gap-4">
               <div class="info-wrap">
                 <div class="pt-10 hidden lg:block">
-                  <h3 class="text-white text-3xl font-bold">Meet The Team</h3>
+                  <h3 class="text-white text-3xl font-bold tracking-0.2">认识大伙</h3>
                   <h5 class="text-gray-500">Learn about the people who make Origin Realms amazing!</h5>
                 </div>
                 <div class="bio-wrap relative">
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="pt-4 pb-6 flex lg:inline-flex mr-auto items-center justify-between flex-wrap text-gray-500">
-            <div @click="scrollStaff('previous')" class="arrow arrow-left cursor-pointer order-2 transition-colors duration-150 ease-in-out hover:text-pink-400 lg:order-1 rounded-full">
+            <div @dblclick.stop.prevent @click="scrollStaff('previous')" class="arrow arrow-left cursor-pointer order-2 transition-colors duration-150 ease-in-out hover:text-pink-400 lg:order-1 rounded-full">
               <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8">
                 <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
               </svg>
@@ -63,7 +63,7 @@
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAqFBMVEUAAAAKDhMaEAEgFAEjFQAnGQIqHAIvHQIvHQMzHwAyIwI2JQQ3IwI6JwRDLAZGMQlROAhiRhBjRhB3STNCIyNCJRg7IxgbICgvACI5ACk8ACxIADRKADNYAD9MDEFfD1JmDVRxCF97AGOJCHGGfV6kjWfanUTmqkjxuUv/x1n/qW7/tn//vIn/vY/3t43/zKb35dv47+zs8/i/0N7OfQ3Fcw68aw0oBAmlhzt7AAAAAXRSTlMAQObYZgAAAOBJREFUeNrt0zN2hUEYANA7sW2pzv4XE0vtM+ZX9ep4wlE359xP/K/nVwAwzgQAkIFRgJI2Q163Xv9hBADQZBRERkFOpGQOaUk5KDmmxiwdcjDMJBfJSQggUA7eCAKBIdKTELjkiDodhkGXQM4Q6UmjTHLHJAgAEUhLGiYCoA62wAPAWELSMABKdunxQAkCW5wwnHziJugyYMgpQU4A3RSkgGHGiExTDt5lAgGUlJwS0hYugoIn1mhRMAOaDIEiSZaGGQORWVqMgFGADhgBMRVpkiYjBIAJ0AcoACQgfcdVAZzvOxmReXGNAAAAAElFTkSuQmCC" class="w-10" alt="test3">
               </div>
             </div>
-            <div @click="scrollStaff('next')" class="arrow arrow-right cursor-pointer order-3 transition-colors duration-150 ease-in-out hover:text-pink-400 rounded-full">
+            <div @dblclick.stop.prevent @click="scrollStaff('next')" class="arrow arrow-right cursor-pointer order-3 transition-colors duration-150 ease-in-out hover:text-pink-400 rounded-full">
               <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8">
                 <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
               </svg>
@@ -81,7 +81,6 @@
 
 <script setup>
 import {computed, onMounted, reactive, ref} from "vue";
-
 
 const contributor = reactive({
   test1: {

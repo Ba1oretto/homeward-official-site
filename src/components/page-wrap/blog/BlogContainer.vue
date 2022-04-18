@@ -71,7 +71,7 @@ const barVisible = shallowRef(false)
 
 
 const selectPostsList = async () => {
-  const {data: res} = await axios.get('baioretto/homeward/api/post/blog', {params})
+  const {data: res} = await axios.get('/homeward/api/post/blog', {params})
   const result = res.data
   publishSync('setCurrentBackground', result.posts[0].featureImage)
   data.pagination = {
