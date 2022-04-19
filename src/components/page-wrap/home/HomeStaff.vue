@@ -4,15 +4,15 @@
       <div class="container mx-auto relative z-10">
         <div class="staff">
           <div class="pt-10 lg:hidden">
-            <h3 class="text-white text-3xl font-bold tracking-0.2">认识大伙</h3>
-            <h5 class="text-gray-500">Learn about the people who make Origin Realms amazing!</h5>
+            <h3 class="text-white text-3xl font-bold tracking-0.2">认识建造者们</h3>
+            <h5 class="text-gray-500">了解谁让归途之旅元素满满！</h5>
           </div>
           <div class="staff-members">
             <div class="member flex flex-col-reverse lg:grid lg:grid-cols-staff gap-4">
               <div class="info-wrap">
                 <div class="pt-10 hidden lg:block">
-                  <h3 class="text-white text-3xl font-bold tracking-0.2">认识大伙</h3>
-                  <h5 class="text-gray-500">Learn about the people who make Origin Realms amazing!</h5>
+                  <h3 class="text-white text-3xl font-bold tracking-0.2">认识建造者们</h3>
+                  <h5 class="text-gray-500">了解谁让归途之旅元素满满！</h5>
                 </div>
                 <div class="bio-wrap relative">
                   <transition-group name="staff">

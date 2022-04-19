@@ -8,7 +8,7 @@
               <div class="server bg-yellow-600 tracking-widest py-2 px-3">play.fantang.cc</div>
               <div class="flex items-center px-3 tracking-wide bg-yellow-600 opacity-80">271</div>
               <transition name="tooltip">
-                <div v-show="ipStyle" class="tooltip absolute left-0.5 -bottom-0.5 text-xs font-bold uppercase transition-opacity ease-in-out duration-200 text-ip-700">IP Copied!</div>
+                <div v-show="ipStyle" class="tooltip absolute left-0.5 -bottom-0.5 text-xs font-bold uppercase transition-opacity ease-in-out duration-200 text-ip-700">IP 以复制!</div>
               </transition>
             </div>
             <div class="socials flex flex-wrap justify-center mt-4 md:mt-0 text-ip-900">
@@ -50,7 +50,7 @@
           <div class="base"/>
         </a>
         <div class="text">
-          <div class="text-black opacity-80 leading-tight">Origin Realms, A Piston Solutions product.</div>
+          <div class="text-black opacity-80 leading-tight">Home Ward Journey, A GonerAge product.</div>
           <div class="text-yellow-900 leading-tight">We are in no way affiliated with or endorsed by Mojang, AB.</div>
         </div>
       </div>

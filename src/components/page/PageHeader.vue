@@ -13,12 +13,12 @@
             <div class="server bg-ip-900 tracking-widest py-2 px-3 border border-lighten">play.fantang.com</div>
             <div class="flex items-center px-3 tracking-wide bg-ip-800 text-ip-400 border border-lighten -ml-px">461</div>
             <transition name="tooltip">
-              <div v-show="ipStyle" class="tooltip absolute mt-2 right-0 text-xs font-bold uppercase transition-opacity ease-in-out duration-200 text-ip-700 -bottom-4">IP Copied!</div>
+              <div v-show="ipStyle" class="tooltip absolute mt-2 right-0 text-xs font-bold uppercase transition-opacity ease-in-out duration-200 text-ip-700 -bottom-4">IP 以复制!</div>
             </transition>
           </div>
           <a href="https://baioretto.com"
              class="server-wrap server-discord ml-4 flex flex-col font-bold text-sm uppercase flex flex-col justify-center items-center lg:items-stretch lg:flex-row transition-opacity duration-150 ease-in-out hover:opacity-80">
-            <div class="server bg-discord-900 tracking-widest py-2 px-3 border border-lighten">Join Discord</div>
+            <div class="server bg-discord-900 tracking-widest py-2 px-3 border border-lighten">加入 DISCORD</div>
             <div class="flex items-center px-3 tracking-wide bg-discord-800 text-indigo-100 border border-lighten -ml-px">11,823+</div>
           </a></div>
       </div>
